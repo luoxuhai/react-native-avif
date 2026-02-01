@@ -1,23 +1,117 @@
-import { View, StyleSheet } from 'react-native';
+import { useState } from 'react';
+import {
+  View,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import { AvifView } from 'react-native-avif';
 
+const { width: screenWidth } = Dimensions.get('window');
+
+const sampleImage = require('./assets/sample.avif');
+
 export default function App() {
+  const [error, setError] = useState<string | null>(null);
+  const handleLoad = () => {
+    setError(null);
+    console.log('AVIF loaded');
+  };
+
+  const handleError = (event: any) => {
+    const { error: errorMessage } = event.nativeEvent;
+    setError(errorMessage);
+    console.error('AVIF error:', errorMessage);
+  };
+
   return (
-    <View style={styles.container}>
-      <AvifView color="#32a852" style={styles.box} />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <Text style={styles.title}>React Native AVIF Viewer</Text>
+
+        {/* Image Display */}
+        <View style={styles.imageContainer}>
+          <AvifView
+            style={styles.avifImage}
+            source={sampleImage}
+            resizeMode="contain"
+            onLoad={handleLoad}
+            onError={handleError}
+          />
+          {error && <Text style={styles.errorText}>{error}</Text>}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#1a1a2e',
   },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+  scrollContent: {
+    alignItems: 'center',
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 20,
+  },
+  imageContainer: {
+    width: screenWidth - 40,
+    height: screenWidth - 40,
+    backgroundColor: '#16213e',
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+    marginBottom: 20,
+  },
+  avifImage: {
+    width: '100%',
+    height: '100%',
+  },
+  errorText: {
+    position: 'absolute',
+    color: '#ff6b6b',
+    fontSize: 14,
+    textAlign: 'center',
+    padding: 10,
+  },
+  controlContainer: {
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: '#4a69bd',
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  sectionTitle: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 12,
+  },
+  infoContainer: {
+    backgroundColor: '#16213e',
+    borderRadius: 8,
+    padding: 12,
+    width: '100%',
+  },
+  infoText: {
+    color: '#a0a0a0',
+    fontSize: 14,
+    marginBottom: 4,
   },
 });

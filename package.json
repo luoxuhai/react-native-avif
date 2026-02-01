@@ -1,7 +1,7 @@
 {
   "name": "react-native-avif",
   "version": "0.1.1",
-  "description": "react native avif",
+  "description": "A React Native component for displaying AVIF images, including animated AVIF images. Supports iOS only with the new architecture (Fabric).",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
