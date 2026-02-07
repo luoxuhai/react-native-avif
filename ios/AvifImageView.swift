@@ -86,9 +86,24 @@ public class AvifImageViewCore: WKWebView, WKNavigationDelegate {
     loadHTMLString(html, baseURL: baseURL)
   }
 
+  private static let videoExtensions: Set<String> = [
+    "mp4", "webm", "mov", "m4v", "avi", "mkv", "ogg", "ogv",
+  ]
+
+  private func isVideoURL(_ urlString: String) -> Bool {
+    let ext = (urlString.lowercased() as NSString).pathExtension
+    return Self.videoExtensions.contains(ext)
+  }
+
   private func buildHTML(imageURL: String, resizeMode: String) -> String {
     let objectFit = cssObjectFit(for: resizeMode)
     let objectPosition = cssObjectPosition(for: resizeMode)
+    let isVideo = isVideoURL(imageURL)
+    let mediaTag = isVideo ? "video" : "img"
+    let mediaElement =
+      isVideo
+      ? "<video src=\"\(imageURL)\" autoplay loop muted playsinline />"
+      : "<img src=\"\(imageURL)\" />"
     return """
       <!doctype html>
       <html>
@@ -96,12 +111,12 @@ public class AvifImageViewCore: WKWebView, WKNavigationDelegate {
           <meta name=\"viewport\" content=\"width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" />
           <style>
             html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: transparent; }
-            html, body, img { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
-            img { width: 100%; height: 100%; object-fit: \(objectFit); object-position: \(objectPosition); pointer-events: none; }
+            html, body, \(mediaTag) { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+            \(mediaTag) { width: 100%; height: 100%; object-fit: \(objectFit); object-position: \(objectPosition); pointer-events: none; }
           </style>
         </head>
         <body>
-          <img src=\"\(imageURL)\" />
+          \(mediaElement)
         </body>
       </html>
       """
