@@ -1,7 +1,7 @@
 {
-  "name": "react-native-avif",
+  "name": "react-native-media-view",
   "version": "0.1.3",
-  "description": "A React Native component for displaying AVIF images, including animated AVIF images. Supports iOS only with the new architecture (Fabric).",
+  "description": "A React Native component for displaying video and images. Supports iOS only with the new architecture (Fabric).",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
@@ -32,7 +32,7 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-avif-example",
+    "example": "yarn workspace react-native-media-view-example",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
     "prepare": "bob build",
     "typecheck": "tsc",
@@ -46,14 +46,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/luoxuhai/react-native-avif.git"
+    "url": "git+https://github.com/luoxuhai/react-native-media-view.git"
   },
   "author": "Darkce <darkce97@gmail.com> (https://github.com/luoxuhai)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/luoxuhai/react-native-avif/issues"
+    "url": "https://github.com/luoxuhai/react-native-media-view/issues"
   },
-  "homepage": "https://github.com/luoxuhai/react-native-avif#readme",
+  "homepage": "https://github.com/luoxuhai/react-native-media-view#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -107,16 +107,16 @@
     ]
   },
   "codegenConfig": {
-    "name": "AvifViewSpec",
+    "name": "MediaViewSpec",
     "type": "all",
     "jsSrcsDir": "src",
     "android": {
-      "javaPackageName": "com.avif"
+      "javaPackageName": "com.mediaview"
     },
     "ios": {
       "components": {
-        "AvifView": {
-          "className": "AvifView"
+        "MediaView": {
+          "className": "MediaView"
         }
       }
     }

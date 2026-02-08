@@ -7,11 +7,11 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-import { AvifView } from 'react-native-avif';
+import { MediaView } from 'react-native-media-view';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const sampleImage = require('./assets/sample.avif');
+const sampleVideo = require('./assets/sample.mp4');
 
 export default function App() {
   const [error, setError] = useState<string | null>(null);
@@ -29,13 +29,13 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.title}>React Native AVIF Viewer</Text>
+        <Text style={styles.title}>React Native Media Viewer</Text>
 
         {/* Image Display */}
         <View style={styles.imageContainer}>
-          <AvifView
-            style={styles.avifImage}
-            source={sampleImage}
+          <MediaView
+            style={styles.mediaImage}
+            source={sampleVideo}
             resizeMode="contain"
             onLoad={handleLoad}
             onError={handleError}
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginBottom: 20,
   },
-  avifImage: {
+  mediaImage: {
     width: '100%',
     height: '100%',
   },

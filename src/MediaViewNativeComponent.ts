@@ -4,10 +4,10 @@ import type { DirectEventHandler } from 'react-native/Libraries/Types/CodegenTyp
 import type { HostComponent } from 'react-native';
 
 /**
- * Source props for AVIF image (resolved from require())
+ * Source props for media (resolved from require())
  */
-export interface AvifSourceProps {
-  /** URI of the AVIF image */
+export interface MediaSourceProps {
+  /** URI of the image or video */
   uri?: string;
 }
 
@@ -17,11 +17,11 @@ export interface AvifSourceProps {
 export type ResizeMode = 'cover' | 'contain' | 'stretch' | 'center';
 
 /**
- * Native props for AvifView component
+ * Native props for MediaView component
  */
 interface NativeProps extends ViewProps {
-  /** Source of the AVIF image */
-  source?: AvifSourceProps;
+  /** Source of the media */
+  source?: MediaSourceProps;
   /** Resize mode for image display (aligned with React Native Image) */
   resizeMode?: string;
   /** Callback when loading starts */
@@ -34,8 +34,8 @@ interface NativeProps extends ViewProps {
   onError?: DirectEventHandler<Readonly<{ error: string }>>;
 }
 
-export type AvifViewComponent = HostComponent<NativeProps>;
+export type MediaViewComponent = HostComponent<NativeProps>;
 
 export default codegenNativeComponent<NativeProps>(
-  'AvifView'
-) as AvifViewComponent;
+  'MediaView'
+) as MediaViewComponent;
